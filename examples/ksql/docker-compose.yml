@@ -1,0 +1,19 @@
+---
+version: '2'
+services:
+  ksql-server:
+    image: confluentinc/cp-ksql-server:5.1.0
+    hostname: ksql-server
+    container_name: ksql-server
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_LOG4J_OPTS: "-Dlog4j.configuration=file:/etc/ksql/log4j-rolling.properties"
+      KSQL_BOOTSTRAP_SERVERS: "192.168.0.143:29092"
+      KSQL_HOST_NAME: docker.for.mac.host.internal
+      KSQL_APPLICATION_ID: "cp-ksql"
+      KSQL_LISTENERS: "http://0.0.0.0:8088"
+      KSQL_CACHE_MAX_BYTES_BUFFERING: 0
+      KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://0.0.0.0:8081"
+      KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
+      KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
